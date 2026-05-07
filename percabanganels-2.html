@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Penilaian Ulangan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+/* CARD */
+.card {
+    width: 320px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.hasil {
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+/* ===== TOMBOL KEMBALI ===== */
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+
+    font-size: 13px;
+    color: white;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.4),
+        inset 0 1px 2px rgba(255,255,255,0.5);
+
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.6),
+        0 0 10px rgba(100,180,255,0.6);
+}
+</style>
+
+<script>
+window.onload = function() {
+    let nilai = prompt("Masukkan Nilai Ulangan:");
+
+    let hasilText = "";
+    let warna = "";
+
+    if(nilai >= 80){
+        hasilText = "🎉 Selamat Anda Tidak Remidi!";
+        warna = "#00ffcc";
+    } else {
+        hasilText = "❌ Maaf Anda Masih Remidi, coba lagi!";
+        warna = "#ff6b6b";
+    }
+
+    document.getElementById("hasil").innerHTML = hasilText;
+    document.getElementById("hasil").style.color = warna;
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Hasil Penilaian</h1>
+
+    <div id="hasil" class="hasil"></div>
+
+    <p style="margin-top:15px; font-size:12px; opacity:0.6;">
+        Terima kasih sudah menggunakan web ini!
+    </p>
+</div>
+
+<!-- NAVIGASI KEMBALI -->
+<a href="indexjava.html" class="back-btn">← Kembali</a>
+
+</body>
+</html>

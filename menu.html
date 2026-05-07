@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Menu Transaksi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background: radial-gradient(circle at top, #5aa9ff, #142c4c);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ===== SHOPPING PARTICLES ===== */
+.particles span{
+    position:absolute;
+    font-size:16px;
+    opacity:0.35;
+    filter: drop-shadow(0 0 6px rgba(180,220,255,0.8));
+    animation: float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform: translateY(110vh) translateX(0) scale(0.8);
+        opacity:0;
+    }
+    to{
+        transform: translateY(-20vh) translateX(40px) scale(1);
+        opacity:0.5;
+    }
+}
+
+/* ===== CARD ===== */
+.card{
+    position:relative;
+    width:380px;
+    padding:40px;
+    border-radius:22px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.35);
+    box-shadow:
+        0 0 45px rgba(160,200,255,0.9),
+        inset 0 0 25px rgba(255,255,255,0.25);
+    z-index:2;
+}
+
+.card h2{
+    text-align:center;
+    color:#ffffff;
+    margin-bottom:30px;
+    letter-spacing:2px;
+}
+
+/* ===== INPUT ===== */
+label{
+    font-size:13px;
+    color:#eef4ff;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:6px 0 20px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.25);
+    color:#fff;
+    outline:none;
+}
+
+input::placeholder{
+    color:#e0ecff;
+}
+
+input:focus{
+    box-shadow:0 0 18px rgba(200,230,255,1);
+    border-color:#ffffff;
+}
+
+/* ===== BUTTON ===== */
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:14px;
+    background: linear-gradient(135deg,#6fb1ff,#ffffff);
+    color:#0f1f3a;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(200,230,255,1);
+    transition:0.3s;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow:0 0 50px rgba(220,240,255,1);
+}
+
+/* ===== RESULT ===== */
+#hasil{
+    margin-top:20px;
+    font-size:14px;
+    color:#ffffff;
+    text-align:center;
+    line-height:1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="card">
+    <h2>TRANSAKSI</h2>
+
+    <label>Total Bayar (TB)</label>
+    <input type="number" id="tb" placeholder="Masukkan total bayar">
+
+    <button onclick="hitung()">Hitung</button>
+
+    <p id="hasil"></p>
+</div>
+
+<script>
+/* ===== SHOPPING PARTICLES ===== */
+const icons = ["🛒","🛍️","📦","💳","🏷️"];
+const container = document.getElementById("particles");
+
+for(let i=0;i<45;i++){
+    const p = document.createElement("span");
+    p.innerText = icons[Math.floor(Math.random()*icons.length)];
+    p.style.left = Math.random()*100 + "vw";
+    p.style.animationDuration = (Math.random()*15 + 10) + "s";
+    p.style.animationDelay = Math.random()*10 + "s";
+    container.appendChild(p);
+}
+
+/* ===== TRANSACTION LOGIC ===== */
+function hitung(){
+    let tb = parseInt(document.getElementById("tb").value);
+    let diskon = 0;
+
+    if(tb >= 1000000){
+        diskon = 0.20;
+    }else if(tb >= 850000){
+        diskon = 0.15;
+    }else if(tb >= 750000){
+        diskon = 0.10;
+    }else if(tb >= 500000){
+        diskon = 0.05;
+    }
+
+    let potongan = tb * diskon;
+    let totalAkhir = tb - potongan;
+
+    document.getElementById("hasil").innerHTML = `
+        Diskon: <b>Rp ${potongan.toLocaleString()}</b><br>
+        Total Bayar: <b>Rp ${totalAkhir.toLocaleString()}</b>
+    `;
+}
+</script>
+
+</body>
+</html>

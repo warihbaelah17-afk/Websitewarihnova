@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operator JavaScript - Pro UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+body {
+    background: #0b1220;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 100px;
+}
+
+/* Background glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.15), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(99,102,241,0.15), transparent 40%);
+    z-index: -1;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        0 30px 60px rgba(0,0,0,0.6),
+        inset 0 1px 1px rgba(255,255,255,0.08);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #38bdf8, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+/* Card glossy */
+.operator-card {
+    position: relative;
+    background: rgba(15, 23, 42, 0.55);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.4),
+        inset 0 1px 1px rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+.operator-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+    border-radius: 16px 16px 0 0;
+}
+
+.operator-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56,189,248,0.4);
+}
+
+.card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+/* Input */
+.input-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+input, select {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    outline: none;
+    flex: 1;
+}
+
+input:focus, select:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,0.2);
+}
+
+/* Button */
+.btn {
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Output */
+.output-box {
+    padding: 12px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 10px;
+    font-family: monospace;
+    border-left: 4px solid #10b981;
+}
+
+/* ===== NAVIGASI KEMBALI ===== */
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: white;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.4),
+        inset 0 1px 2px rgba(255,255,255,0.5);
+
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.6),
+        0 0 10px rgba(0,200,255,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Materi 4: Operator</h1>
+        <p>Aritmatika, Perbandingan, Logika, dan Ternary</p>
+    </div>
+
+    <!-- ARITMATIKA -->
+    <div class="operator-card">
+        <div class="card-title">🧮 Operator Aritmatika</div>
+        <div class="input-group">
+            <input type="number" id="arit-a" value="10">
+            <select id="arit-op">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
+                <option value="**">**</option>
+            </select>
+            <input type="number" id="arit-b" value="3">
+            <button class="btn" onclick="hitungAritmatika()">Hitung</button>
+        </div>
+        <div id="hasil-aritmatika" class="output-box">Hasil: 10 + 3 = 13</div>
+    </div>
+
+    <!-- PERBANDINGAN -->
+    <div class="operator-card">
+        <div class="card-title">⚖️ Operator Perbandingan</div>
+        <div class="input-group">
+            <input type="number" id="band-a" value="5">
+            <select id="band-op">
+                <option value="==">==</option>
+                <option value="!=">!=</option>
+                <option value=">">></option>
+                <option value="<"><</option>
+                <option value=">=">>=</option>
+            </select>
+            <input type="number" id="band-b" value="10">
+            <button class="btn" onclick="hitungPerbandingan()">Cek</button>
+        </div>
+        <div id="hasil-perbandingan" class="output-box">Hasil: 5 == 10 adalah false</div>
+    </div>
+
+    <!-- LOGIKA -->
+    <div class="operator-card">
+        <div class="card-title">🔌 Operator Logika</div>
+        <div class="input-group">
+            <select id="logika-a">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+            <select id="logika-op">
+                <option value="&&">&&</option>
+                <option value="||">||</option>
+            </select>
+            <select id="logika-b">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+            <button class="btn" onclick="hitungLogika()">Cek</button>
+        </div>
+        <div id="hasil-logika" class="output-box">Hasil: true && true adalah true</div>
+    </div>
+
+    <!-- TERNARY -->
+    <div class="operator-card">
+        <div class="card-title">❓ Operator Ternary</div>
+        <div class="input-group">
+            <input type="number" id="ternary-umur" value="16">
+            <button class="btn" onclick="hitungTernary()">Cek</button>
+        </div>
+        <div id="hasil-ternary" class="output-box">Status: Bocil</div>
+    </div>
+<a href="indexjava.html" class="back-btn">← Kembali</a>
+</div>
+
+<script>
+function hitungAritmatika(){
+    let a = +arit-a.value;
+    let b = +arit-b.value;
+    let op = arit-op.value;
+    let hasil = eval(a + op + b);
+    hasil-aritmatika.innerText = `Hasil: ${a} ${op} ${b} = ${hasil}`;
+}
+
+function hitungPerbandingan(){
+    let a = +band-a.value;
+    let b = +band-b.value;
+    let op = band-op.value;
+    let hasil = eval(a + op + b);
+    hasil-perbandingan.innerHTML = `Hasil: ${a} ${op} ${b} adalah <b>${hasil}</b>`;
+}
+
+function hitungLogika(){
+    let a = logika-a.value === 'true';
+    let b = logika-b.value === 'true';
+    let op = logika-op.value;
+    let hasil = op === '&&' ? a && b : a || b;
+    hasil-logika.innerHTML = `Hasil: ${a} ${op} ${b} adalah <b>${hasil}</b>`;
+}
+
+function hitungTernary(){
+    let umur = +ternary-umur.value;
+    let status = umur >= 18 ? "Boleh Masuk 🟢" : "Tidak Boleh Masuk 🔴";
+    hasil-ternary.innerHTML = status;
+}
+
+</script>
+
+</body>
+</html>

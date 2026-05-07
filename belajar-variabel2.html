@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>SMK N 1 Purwokerto | Neon Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --neon-blue:#00f7ff;
+    --neon-pink:#ff00d4;
+    --neon-purple:#7a00ff;
+    --dark-bg:#05050a;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Poppins',sans-serif;
+    background:
+        radial-gradient(circle at top, #0f2027, #05050a 60%),
+        linear-gradient(120deg, var(--neon-purple), var(--neon-blue));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+}
+
+/* Neon glow animation */
+@keyframes neonGlow{
+    0%{box-shadow:0 0 15px var(--neon-blue);}
+    50%{box-shadow:0 0 35px var(--neon-pink);}
+    100%{box-shadow:0 0 15px var(--neon-blue);}
+}
+
+.card{
+    width:95%;
+    max-width:1000px;
+    padding:40px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.15);
+    animation:neonGlow 4s infinite;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    text-align:center;
+    font-size:36px;
+    letter-spacing:3px;
+    margin-bottom:40px;
+    color:var(--neon-blue);
+    text-shadow:
+        0 0 10px var(--neon-blue),
+        0 0 25px var(--neon-blue);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.item{
+    padding:18px 22px;
+    border-radius:15px;
+    background:rgba(0,0,0,0.5);
+    border:1px solid rgba(0,247,255,0.3);
+    transition:0.4s;
+    position:relative;
+    overflow:hidden;
+}
+
+.item::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform:translateX(-100%);
+    transition:0.5s;
+}
+
+.item:hover::before{
+    transform:translateX(100%);
+}
+
+.item:hover{
+    transform:translateY(-5px) scale(1.02);
+    box-shadow:
+        0 0 20px var(--neon-blue),
+        0 0 40px rgba(0,247,255,0.4);
+}
+
+.label{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--neon-pink);
+    margin-bottom:6px;
+}
+
+.value{
+    font-size:15px;
+    line-height:1.7;
+    color:#e0faff;
+}
+
+a{
+    color:var(--neon-blue);
+    text-decoration:none;
+    font-weight:500;
+}
+
+a:hover{
+    text-shadow:0 0 10px var(--neon-blue);
+}
+
+footer{
+    margin-top:35px;
+    text-align:center;
+    font-size:13px;
+    opacity:0.7;
+}
+
+@media(max-width:768px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+<script>
+    var nama = prompt("Karena kamu memilih ke smkn1 purwokerto, maka sebutkan namamu", "");
+        document.write("<p>Hello "+ nama +"</p>");
+        var yakin = confirm("Apakah kamu yakin akan mengunjungi website sekolah saya?");
+
+        if (yakin) {
+            window.location = "https://smkn1purwokerto.sch.id/";
+        } else {
+            document.write("Baiklah, tetap di sini saja ya :)");
+        }
+var data = {
+    sekolah: "SMK N 1 PURWOKERTO",
+    alamat: "Jl. Dr. Soeparno No.29, Purwokerto Timur, Banyumas",
+    jurusan: "AKL, MPLB, PM, DKV, TJKT, PPLG, TF",
+    siswa: 2128,
+    guru: 145,
+    website: "https://s.id/smkn1purwokerto",
+    eskul: "Badminton, Pramuka, Futsal, Basket, Paskibra, OSIS, PMR, Rohis, Tari, Jurnalistik, dll",
+    fasilitas: "Lab Keahlian, Masjid, Lapangan, Perpustakaan, Kantin, Gazebo",
+    kepsek: "Drs. Witoto",
+    kapro: "Ichsan Romdona, S.Pd",
+    wali: "Dwi Prastanti Fajriatun, S.Pd",
+    guruWali: "Seno Nugroho, S.Kom"
+};
+
+alert("SELAMAT DATANG " + nama + " di website " + data.sekolah);
+</script>
+</head>
+
+<body>
+<div class="card">
+    <h1>School Profile</h1>
+
+    <div class="grid">
+        <div class="item"><div class="label">Nama Sekolah</div><div class="value"><script>document.write(data.sekolah)</script></div></div>
+        <div class="item"><div class="label">Alamat</div><div class="value"><script>document.write(data.alamat)</script></div></div>
+        <div class="item"><div class="label">Jurusan</div><div class="value"><script>document.write(data.jurusan)</script></div></div>
+        <div class="item"><div class="label">Jumlah Siswa</div><div class="value"><script>document.write(data.siswa)</script></div></div>
+        <div class="item"><div class="label">Jumlah Guru</div><div class="value"><script>document.write(data.guru)</script></div></div>
+        <div class="item"><div class="label">Website</div><div class="value"><a href="#" onclick="window.open(data.website)"><script>document.write(data.website)</script></a></div></div>
+        <div class="item"><div class="label">Ekstrakurikuler</div><div class="value"><script>document.write(data.eskul)</script></div></div>
+        <div class="item"><div class="label">Fasilitas</div><div class="value"><script>document.write(data.fasilitas)</script></div></div>
+        <div class="item"><div class="label">Kepala Sekolah</div><div class="value"><script>document.write(data.kepsek)</script></div></div>
+        <div class="item"><div class="label">Kapro</div><div class="value"><script>document.write(data.kapro)</script></div></div>
+        <div class="item"><div class="label">Wali Kelas</div><div class="value"><script>document.write(data.wali)</script></div></div>
+        <div class="item"><div class="label">Guru Wali</div><div class="value"><script>document.write(data.guruWali)</script></div></div>
+    </div>
+
+    <footer>
+        ⚡ Web by Warih Nova Dwi Hasta • 2026
+    </footer>
+</div>
+</body>
+</html>

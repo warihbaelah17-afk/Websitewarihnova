@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator iOS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #f2f2f7;
+    --text: #111;
+}
+
+body.dark {
+    --bg: #000;
+    --text: #fff;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: none;
+}
+
+/* ROCKET */
+.rocket {
+    position: fixed;
+    width: 40px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* CANVAS */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* APP */
+.app {
+    position: relative;
+    z-index: 2;
+    width: 340px;
+}
+
+.header {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* GLASS LIST */
+.list {
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.75),
+        rgba(255,255,255,0.55)
+    );
+
+    backdrop-filter: blur(35px) saturate(180%);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.25),
+        0 8px 20px rgba(0,0,0,0.15),
+        0 2px 6px rgba(0,0,0,0.08),
+        inset 0 1px 1px rgba(255,255,255,0.9),
+        inset 0 -1px 3px rgba(0,0,0,0.08);
+
+    overflow: hidden;
+}
+
+body.dark .list {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+.item {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    transition: 0.2s;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item:hover {
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.5),
+        rgba(255,255,255,0.3)
+    );
+}
+
+body.dark .item:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.item span {
+    opacity: 0.5;
+}
+
+/* RESULT */
+.result {
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.75),
+        rgba(255,255,255,0.55)
+    );
+
+    backdrop-filter: blur(30px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.2),
+        0 5px 15px rgba(0,0,0,0.1),
+        inset 0 1px 2px rgba(255,255,255,0.9),
+        inset 0 -1px 3px rgba(0,0,0,0.08);
+
+    display: none;
+}
+
+body.dark .result {
+    background: rgba(255,255,255,0.12);
+}
+
+/* TOGGLE */
+.toggle {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+/* CREDIT */
+.credit {
+    margin-top: 14px;
+    font-size: 12px;
+    opacity: 0.6;
+    text-align: center;
+
+    padding: 8px;
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.7),
+        0 2px 8px rgba(0,0,0,0.1);
+}
+
+body.dark .credit {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ===== NAVIGASI KEMBALI ===== */
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+
+    padding: 10px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+
+    font-size: 13px;
+    color: var(--text);
+
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,0.6);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.25),
+        inset 0 1px 2px rgba(255,255,255,0.8);
+
+    transition: 0.3s;
+}
+
+body.dark .back-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.4),
+        0 0 10px rgba(0,150,255,0.5);
+}
+</style>
+
+<script>
+let canvas, ctx, particles=[];
+
+function initCanvas(){
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    resize();
+    window.addEventListener("resize", resize);
+    animate();
+}
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+/* PARTICLES */
+function createParticles(type){
+    particles = [];
+    for(let i=0;i<30;i++){
+        particles.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            size: Math.random()*12+10,
+            speed: Math.random()*1+0.3,
+            type:type,
+            alpha: Math.random()
+        });
+    }
+}
+
+function drawShape(p){
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle = document.body.classList.contains("dark") ? "#fff" : "#000";
+
+    ctx.beginPath();
+
+    if(p.type==="cube"){
+        ctx.rect(p.x,p.y,p.size,p.size);
+    }
+    else if(p.type==="sphere"){
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    }
+    else if(p.type==="cone"){
+        ctx.moveTo(p.x,p.y);
+        ctx.lineTo(p.x+p.size,p.y+p.size);
+        ctx.lineTo(p.x-p.size,p.y+p.size);
+    }
+
+    ctx.fill();
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        p.y += p.speed;
+        if(p.y > canvas.height) p.y = 0;
+        drawShape(p);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+/* ROCKET */
+document.addEventListener("mousemove", (e) => {
+    let rocket = document.getElementById("rocket");
+    rocket.style.left = e.clientX + "px";
+    rocket.style.top = e.clientY + "px";
+    rocket.style.transform = `translate(-50%, -50%) rotate(${e.movementX * 2}deg)`;
+});
+
+/* MODE */
+function toggleMode(){
+    document.body.classList.toggle("dark");
+}
+
+/* RESULT */
+function tampilkanHasil(teks){
+    let hasil = document.getElementById("hasil");
+    hasil.innerHTML = teks;
+    hasil.style.display = "block";
+}
+
+/* FUNCTIONS */
+function volumekerucut(){
+    createParticles("cone");
+    let r = prompt("Masukkan jari-jari?");
+    let t = prompt("Masukkan tinggi?");
+    let v = (1/3)*Math.PI*r*r*t;
+    tampilkanHasil("Volume Kerucut = "+v.toFixed(2));
+}
+
+function luasbola(){
+    createParticles("sphere");
+    let r = prompt("Masukkan jari-jari?");
+    let l = 4*Math.PI*r*r;
+    tampilkanHasil("Luas Bola = "+l.toFixed(2));
+}
+
+function volumebola(){
+    createParticles("sphere");
+    let r = prompt("Masukkan jari-jari?");
+    let v = (4/3)*Math.PI*r*r*r;
+    tampilkanHasil("Volume Bola = "+v.toFixed(2));
+}
+
+function volumekubus(){
+    createParticles("cube");
+    let s = prompt("Masukkan sisi?");
+    let v = s*s*s;
+    tampilkanHasil("Volume Kubus = "+v);
+}
+
+function luaskerucut(){
+    createParticles("cone");
+    let r = prompt("Masukkan jari-jari?");
+    let s = prompt("Masukkan garis pelukis?");
+    let l = Math.PI*r*(r+s);
+    tampilkanHasil("Luas Kerucut = "+l.toFixed(2));
+}
+</script>
+
+</head>
+
+<body onload="initCanvas()">
+
+<canvas id="canvas"></canvas>
+
+<img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" id="rocket" class="rocket">
+
+<div class="app">
+    <div class="header">Kalkulator</div>
+
+    <div class="list">
+        <div class="item" onclick="volumekerucut()">Volume Kerucut <span>›</span></div>
+        <div class="item" onclick="luasbola()">Luas Bola <span>›</span></div>
+        <div class="item" onclick="volumebola()">Volume Bola <span>›</span></div>
+        <div class="item" onclick="volumekubus()">Volume Kubus <span>›</span></div>
+        <div class="item" onclick="luaskerucut()">Luas Kerucut <span>›</span></div>
+    </div>
+
+    <div id="hasil" class="result"></div>
+
+    <div class="toggle" onclick="toggleMode()">🌗 Mode</div>
+
+    <div class="credit">Warih Nova Dwi Hasta • XI TJKT 1</div>
+</div>
+
+<!-- NAVIGASI -->
+<a href="indexjava.html" class="back-btn">← Kembali</a>
+
+</body>
+</html>
