@@ -31,15 +31,21 @@ body::before, body::after{
     filter:blur(140px);
     z-index:-1;
 }
+
 body::before{
-    width:700px;height:700px;
+    width:700px;
+    height:700px;
     background:rgba(0,140,255,0.25);
-    top:-150px;left:-150px;
+    top:-150px;
+    left:-150px;
 }
+
 body::after{
-    width:600px;height:600px;
+    width:600px;
+    height:600px;
     background:rgba(0,200,255,0.2);
-    bottom:-150px;right:-150px;
+    bottom:-150px;
+    right:-150px;
 }
 
 /* NAVBAR */
@@ -48,6 +54,10 @@ body::after{
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(25px);
     border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.navbar h2{
+    font-size:28px;
 }
 
 /* MAIN */
@@ -64,8 +74,14 @@ body::after{
     padding:30px;
     border-radius:25px;
 
-    background:linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,0.08),
+        rgba(255,255,255,0.03)
+    );
+
     backdrop-filter:blur(35px);
+
     border:1px solid rgba(255,255,255,0.18);
 
     box-shadow:
@@ -73,6 +89,11 @@ body::after{
         0 0 80px rgba(0,150,255,0.15),
         inset 0 1px 0 rgba(255,255,255,0.25),
         inset 0 -8px 20px rgba(0,0,0,0.25);
+}
+
+/* TITLE */
+.menu-box h1{
+    margin-bottom:25px;
 }
 
 /* PARTICLES */
@@ -93,23 +114,45 @@ body::after{
 
 /* FLOAT */
 @keyframes floatUp{
-    0%{transform:translateY(120px) scale(0.7);opacity:0;}
-    20%{opacity:0.3;}
-    80%{opacity:0.3;}
-    100%{transform:translateY(-400px) scale(1.2);opacity:0;}
+    0%{
+        transform:translateY(120px) scale(0.7);
+        opacity:0;
+    }
+
+    20%{
+        opacity:0.3;
+    }
+
+    80%{
+        opacity:0.3;
+    }
+
+    100%{
+        transform:translateY(-400px) scale(1.2);
+        opacity:0;
+    }
 }
 
-/* FLASH EFFECT ⚡ */
+/* FLASH */
 @keyframes flash{
-    0%,100%{opacity:0.2;}
-    50%{opacity:0.9;}
+    0%,100%{
+        opacity:0.2;
+    }
+
+    50%{
+        opacity:0.9;
+    }
 }
 
 /* GRID */
 ul{
     list-style:none;
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(200px,1fr));
+
     gap:15px;
 }
 
@@ -121,7 +164,12 @@ ul li a{
     text-decoration:none;
     color:#d6ecff;
 
-    background:linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,0.10),
+        rgba(255,255,255,0.03)
+    );
+
     border:1px solid rgba(255,255,255,0.12);
 
     box-shadow:
@@ -141,19 +189,25 @@ ul li a:hover{
 .footer{
     margin-top:60px;
     padding:40px 20px;
+
     background:rgba(255,255,255,0.03);
+
     backdrop-filter:blur(25px);
+
     border-top:1px solid rgba(255,255,255,0.08);
 }
 
 .footer-content{
     max-width:1000px;
     margin:auto;
+
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:40px;
 }
 
+/* SCHOOL */
 .school-id{
     display:flex;
     align-items:center;
@@ -168,9 +222,16 @@ ul li a:hover{
     background:rgba(255,255,255,0.06);
 }
 
-.school-name{font-weight:600;}
-.jurusan{font-size:12px;opacity:0.7;}
+.school-name{
+    font-weight:600;
+}
 
+.jurusan{
+    font-size:12px;
+    opacity:0.7;
+}
+
+/* SOCIAL */
 .social{
     margin-top:12px;
     display:flex;
@@ -188,6 +249,7 @@ ul li a:hover{
 .alamat p{
     font-size:13px;
     opacity:0.75;
+    line-height:1.7;
 }
 
 /* PROFILE */
@@ -196,12 +258,17 @@ ul li a:hover{
     margin-top:40px;
 }
 
+.creator a{
+    text-decoration:none;
+}
+
 .profile-card{
     display:inline-block;
     padding:20px 30px;
     border-radius:24px;
 
     background:rgba(255,255,255,0.05);
+
     backdrop-filter:blur(30px);
 
     box-shadow:0 0 40px rgba(0,150,255,0.4);
@@ -222,24 +289,123 @@ ul li a:hover{
     position:absolute;
     bottom:0;
     right:0;
+
     background:#dd2a7b;
+
     width:20px;
     height:20px;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:10px;
+
     border:2px solid #050d1a;
 }
 
-.name{margin-top:10px;font-weight:600;color:#fff;}
-.role{font-size:12px;color:#fff;}
+.name{
+    margin-top:10px;
+    font-weight:600;
+    color:#fff;
+}
 
-/* RESPONSIVE */
-@media(max-width:700px){
+.role{
+    font-size:12px;
+    color:#fff;
+}
+
+/* ================= MOBILE VIEW ================= */
+@media(max-width:768px){
+
+    .navbar{
+        padding:15px 20px;
+        text-align:center;
+    }
+
+    .navbar h2{
+        font-size:20px;
+    }
+
+    .main{
+        padding:20px;
+    }
+
+    .menu-box{
+        padding:25px 18px;
+        border-radius:20px;
+    }
+
+    .menu-box h1{
+        font-size:26px;
+        text-align:center;
+        margin-bottom:20px;
+    }
+
+    ul{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+
+    ul li a{
+        padding:16px;
+        font-size:14px;
+        text-align:center;
+    }
+
+    .footer{
+        margin-top:40px;
+        padding:30px 20px;
+    }
+
     .footer-content{
         grid-template-columns:1fr;
+        gap:25px;
+        text-align:center;
+    }
+
+    .school-id{
+        flex-direction:column;
+        justify-content:center;
+    }
+
+    .school-id img{
+        width:50px;
+        height:50px;
+    }
+
+    .social{
+        justify-content:center;
+    }
+
+    .alamat p{
+        font-size:12px;
+        line-height:1.8;
+    }
+
+    .creator{
+        margin-top:30px;
+    }
+
+    .profile-card{
+        width:100%;
+        max-width:300px;
+        padding:20px;
+    }
+
+    .photo-wrapper img{
+        width:90px;
+        height:90px;
+    }
+
+    .name{
+        font-size:16px;
+    }
+
+    .role{
+        font-size:12px;
     }
 }
 </style>
@@ -280,15 +446,26 @@ ul li a:hover{
             <div class="school-id">
                 <img src="logo-smk.png">
                 <img src="logo-tjkt.png">
+
                 <div>
-                    <div class="school-name">SMKN 1 PURWOKERTO</div>
-                    <div class="jurusan">Teknik Jaringan Komputer & Telekomunikasi</div>
+                    <div class="school-name">
+                        SMKN 1 PURWOKERTO
+                    </div>
+
+                    <div class="jurusan">
+                        Teknik Jaringan Komputer & Telekomunikasi
+                    </div>
                 </div>
             </div>
 
             <div class="social">
-                <a href="https://www.instagram.com/smknegeri1purwokerto"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@smkn1purwokerto"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/smknegeri1purwokerto">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://youtube.com/@smkn1purwokerto">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
         </div>
 
@@ -304,14 +481,27 @@ ul li a:hover{
 
     <div class="creator">
         <a href="https://www.instagram.com/astaaqt">
+
             <div class="profile-card">
+
                 <div class="photo-wrapper">
                     <img src="foto-warih.jpg">
-                    <div class="ig-icon"><i class="fab fa-instagram"></i></div>
+
+                    <div class="ig-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
                 </div>
-                <div class="name">Warih Nova Dwi Hasta</div>
-                <div class="role">Web Developer • XI TJKT 1</div>
+
+                <div class="name">
+                    Warih Nova Dwi Hasta
+                </div>
+
+                <div class="role">
+                    Web Developer • XI TJKT 1
+                </div>
+
             </div>
+
         </a>
     </div>
 </div>
@@ -320,13 +510,21 @@ ul li a:hover{
 const container = document.getElementById("particles");
 
 for(let i=0;i<35;i++){
-    let el=document.createElement("span");
-    el.innerHTML="⚡";
 
-    el.style.left=Math.random()*100+"%";
-    el.style.fontSize=(Math.random()*18+12)+"px";
-    el.style.animationDuration=(Math.random()*6+8)+"s";
-    el.style.animationDelay=(Math.random()*5)+"s";
+    let el = document.createElement("span");
+
+    el.innerHTML = "⚡";
+
+    el.style.left = Math.random()*100 + "%";
+
+    el.style.fontSize =
+        (Math.random()*18+12) + "px";
+
+    el.style.animationDuration =
+        (Math.random()*6+8) + "s";
+
+    el.style.animationDelay =
+        (Math.random()*5) + "s";
 
     container.appendChild(el);
 }
